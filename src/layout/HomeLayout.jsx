@@ -1,4 +1,5 @@
 
+import Footer from '../shared/Footer';
 import Navbar from '../shared/Navbar';
 import { Outlet } from 'react-router';
 
@@ -11,8 +12,8 @@ const HomeLayout = () => {
         <main className='w-11/12 mx-auto min-h-screen'>
             <Outlet></Outlet>
         </main>
-        <footer className='w-11/12 mx-auto '>
-            footer
+        <footer className='w-full'>
+            <Footer/>
         </footer>
         </div>
     );
