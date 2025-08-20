@@ -10,13 +10,13 @@ const Navbar = () => {
       <NavLink to='/'>Home</NavLink>
     </li>
     <li className='text-sm bg-blue-500 bg-clip-text text-transparent font-bold  px-4 py-2'>
-      <NavLink to='/findJobs'>Colleges</NavLink>
+      <NavLink to='/colleges'>Colleges</NavLink>
     </li>
     <li className='text-sm bg-blue-500 bg-clip-text text-transparent font-bold  px-4 py-2'>
-      <NavLink to='/employers'>Admission</NavLink>
+      <NavLink to='/admission'>Admission</NavLink>
     </li>
     <li className='text-sm bg-blue-500 bg-clip-text text-transparent font-bold  px-4 py-2'>
-      <NavLink to='/employers'>My College</NavLink>
+      <NavLink to='/my_colleges'>My College</NavLink>
     </li>
     
   </>
@@ -35,7 +35,7 @@ const Navbar = () => {
        {link}
       </ul>
     </div>
-    <Link className="btn btn-ghost text-orange-600 text-2xl font-bold">Target</Link>
+    <Link to={'/'} className="btn btn-ghost text-orange-600 text-2xl font-bold">Target</Link>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">

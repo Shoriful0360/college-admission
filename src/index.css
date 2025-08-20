@@ -7,3 +7,11 @@
  .bgClor2{
   background-color: oklch(57.7% 0.245 27.325);
  }
+ .active{
+  color:oklch(57.7% 0.245 27.325) ;
+  text-decoration: underline  ;
+  text-underline-offset: 5px ;
+  text-decoration-color: blue;
+  text-decoration-thickness: 2px;
+
+ }
