@@ -1,10 +1,10 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-.bgClor{
+.bgClour{
   background-color: oklch(79.2% 0.209 151.711);
 }
- .bgClor2{
+ .bgClour2{
   background-color: oklch(57.7% 0.245 27.325);
  }
  .active{
@@ -15,3 +15,21 @@
   text-decoration-thickness: 2px;
 
  }
+  
+
+ @keyframes border-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-border {
+  background-size: 200% 200%;
+  animation: border-move 3s linear infinite;
+}

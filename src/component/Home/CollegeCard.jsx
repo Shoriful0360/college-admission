@@ -1,14 +1,19 @@
+import { Link } from "react-router";
+
 export default function CollegeCard() {
   const college = {
-    name: "Greenfield University",
-    image:
-      "https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=800&q=80",
-    admission: "March 10 - June 15, 2025",
-    events: ["Tech Fest 2025", "Cultural Week", "Innovation Summit"],
-    research:
-      "Ranked top 10 in AI & Data Science Research with over 200+ published papers.",
-    sports: ["Football", "Basketball", "Athletics"],
-  };
+id: 1,
+name: "Greenfield University",
+image:
+"https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=800&q=80",
+admission: "March 10 - June 15, 2025",
+admissionProcess:
+"Step 1: Submit online application. Step 2: Appear in the entrance test. Step 3: Shortlisted students will be called for interview. Step 4: Final merit list published with admission confirmation.",
+events: ["Tech Fest 2025", "Cultural Week", "Innovation Summit"],
+research:
+"Ranked top 10 in AI & Data Science Research with over 200+ published papers.",
+sports: ["Football", "Basketball", "Athletics"],
+}
 
   return (
   
@@ -49,6 +54,14 @@ export default function CollegeCard() {
                 </span>
               ))}
             </div>
+            <div className="pt-4">
+<Link
+to={`/colleges/details`}
+className="inline-block px-5 py-2 bg-blue-600 text-white rounded-xl hover:bg-red-700 transition"
+>
+Details
+</Link>
+</div>
           </div>
         </div>
     

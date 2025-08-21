@@ -6,6 +6,7 @@ import HomePage from '../page/HomePage';
 import Colleges from '../page/Colleges';
 import Admission from '../page/Admission';
 import MyCollege from '../page/MyCollege';
+import CollegesDetails from '../page/CollegesDetails';
 
 const RouteProvider = () => {
     return (
@@ -14,6 +15,7 @@ const RouteProvider = () => {
                 <Route path='/' element={<HomeLayout/>}>
                 <Route path='/' element={<HomePage/>}></Route>
                 <Route path='/colleges' element={<Colleges/>} />
+                <Route path={`/colleges/details`} element={<CollegesDetails/>}/>
                 <Route path='/admission' element={<Admission/>} />
                 <Route path='my_colleges' element={<MyCollege/>} />
                 </Route>
