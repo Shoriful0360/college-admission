@@ -64,9 +64,20 @@ className="px-3 py-1 bg-green-100 text-green-600 text-sm rounded-full"
 </div>
 </div>
 {/* description */}
-<div className="space-y-2">
-    <h3 className="text-xl font-bold underline underline-offset-5">Description:</h3>
-    <p>{college?.description}</p>
+<div className="space-y-2 mt-4">
+    <h3 className="text-xl font-bold underline underline-offset-5">Description :</h3>
+    <p className="text-justify">{college?.description}</p>
+</div>
+
+{/* comment */}
+<div>
+    <h3 className="text-xl font-bold underline underline-offset-5 mt-4 ">Comment :</h3>
+    <fieldset className="fieldset w-full">
+  <legend className="fieldset-legend">Your bio</legend>
+  <textarea className="textarea lg:w-3xl md:w-2xl h-34" placeholder="Bio"></textarea>
+  <button className="btn w-fit flex ">send</button>
+  
+</fieldset>
 </div>
 </div>
     );
