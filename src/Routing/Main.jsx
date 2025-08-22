@@ -8,6 +8,7 @@ import Admission from '../page/Admission';
 import MyCollege from '../page/MyCollege';
 import CollegesDetails from '../page/CollegesDetails';
 import Register from '../page/Authentication/Register';
+import Login from '../page/Authentication/Login';
 
 const RouteProvider = () => {
     return (
@@ -20,6 +21,7 @@ const RouteProvider = () => {
                 <Route path='/admission' element={<Admission/>} />
                 <Route path='my_colleges' element={<MyCollege/>} />
                 <Route path='/register' element={<Register/>}/>
+                <Route path='/login' element={<Login/>}/>
                 </Route>
                 
             </Routes>
