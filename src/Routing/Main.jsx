@@ -1,5 +1,5 @@
 
-import React from 'react';
+
 import { Route, Routes } from 'react-router';
 import HomeLayout from '../layout/HomeLayout';
 import HomePage from '../page/HomePage';
@@ -7,6 +7,7 @@ import Colleges from '../page/Colleges';
 import Admission from '../page/Admission';
 import MyCollege from '../page/MyCollege';
 import CollegesDetails from '../page/CollegesDetails';
+import Register from '../page/Authentication/Register';
 
 const RouteProvider = () => {
     return (
@@ -18,6 +19,7 @@ const RouteProvider = () => {
                 <Route path={`/colleges/details`} element={<CollegesDetails/>}/>
                 <Route path='/admission' element={<Admission/>} />
                 <Route path='my_colleges' element={<MyCollege/>} />
+                <Route path='/register' element={<Register/>}/>
                 </Route>
                 
             </Routes>

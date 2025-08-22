@@ -1,8 +1,10 @@
 import { Link, NavLink } from "react-router";
+import useAuth from "../hook/useAuth";
 
 
 
 const Navbar = () => {
+  const{user}=useAuth()
 
 // const{user}=useContext(AuthContext)
   const link = <>
@@ -43,8 +45,12 @@ const Navbar = () => {
    {link}
     </ul>
   </div>
+  {/* Profile */}
+
   <div className="navbar-end">
-    <div className="dropdown dropdown-end">
+    {
+      user?
+       <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
           <img
@@ -65,6 +71,11 @@ const Navbar = () => {
         <li><a>Logout</a></li>
       </ul>
     </div>
+    :
+   <Link to={'/register'}> <button className="btn bg-blue-700 text-white">Login</button></Link>
+    }
+
+   
   </div>
 </div>
   );
