@@ -6,6 +6,7 @@ import { IoEyeOffOutline } from "react-icons/io5";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useAuth from "../../hook/useAuth";
+import Swal from "sweetalert2";
 
 const Register = () => {
     const [visible,setVisible]=useState(false)
@@ -15,30 +16,48 @@ const Register = () => {
     const handleFormSubmit=async(e)=>{
         e.preventDefault()
         const form=e.target;
-        const name=form.name.value;
+        // const name=form.name.value;
         const email=form.email.value;
-        const photoUrl=form.photoUrl.value;
+        // const photoUrl=form.photoUrl.value;
         const password=form.password.value;
         const checkbox=e.target.terms.checked;
     //  console.log(name,email,password,photoUrl)
      const strongPassword=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/; 
      if (password.length < 6) {
-        toast.error('password atleast 6 character')
+        Swal.fire({
+  icon: "error",
+  title: "Oops...",
+  text: "password atleast 6 character!",
+
+});
+       
         return;
       }
       if(!strongPassword.test(password)){
-        toast.error('at least  one uppercase,one lowercase,one number and on special simble')
+        Swal.fire({
+  icon: "error",
+  title: "Oops...",
+  text: "at least  one uppercase,one lowercase,one number and on special simble",
+ 
+});
+    
         return;
       }
       if(!checkbox){
-        toast.error('check terms and conditon')
+        Swal.fire({
+  icon: "error",
+  title: "Oops...",
+  text: "check terms and conditon",
+  
+});
+        
         return;
       }  
       try{
-        const result=await createUser(email,password)
+       await createUser(email,password)
 
-       await updateUserProfile(name,photoUrl)
-      setUser({...result?.user, displayName:name,photoURL:photoUrl})
+    //    await updateUserProfile(name,photoUrl)
+    //   setUser({...result?.user, displayName:name,photoURL:photoUrl})
       toast.success('Signup is successfuylly')
       form.reset()
       navigate('/')
@@ -50,7 +69,7 @@ const Register = () => {
     
       }
     return (
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col justify-center items-center h-svh space-y-4">
         <h1 className="text-center text-4xl font-bold">Register Now</h1>
         <div className="hero ">
     <h1 className="text-red-800">heool</h1>
@@ -71,28 +90,32 @@ const Register = () => {
                     </label>
                     <input type="text" name="name" placeholder="Enter your name" className="input input-bordered" required />
                 </div>
-                <div className="form-control">
+                {/* photo url */}
+                {/* <div className="form-control">
                     <label className="label">
                         <span className="label-text">Photo URL</span>
                     </label>
-                    <input type="url" name="photoUrl" placeholder="Enter your photo URL" className="input input-bordered" required />
-                </div>
+                    <input type="url" name="photoUrl" placeholder="Enter your photo URL" className="input input-bordered"  />
+                </div> */}
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Email</span>
                     </label>
                     <input type="email" name="email" placeholder="email" className="input input-bordered" required />
                 </div>
+                      {/* password */}
                 <div className="form-control relative">
                     <label className="label">
                         <span className="label-text">Password</span>
                     </label>
-                    <div className='absolute right-2 top-[50px] cursor-pointer'>
+              
+                   
+                    <input type={visible?'text':'password'} name="password" placeholder="password" className="input input-bordered" required />
+                     <div className='absolute top-8 right-4  cursor-pointer'>
                     {
-                visible ? <div onClick={()=>setVisible(false)}>  <GoEye></GoEye></div> :<div onClick={()=>setVisible(true)}><IoEyeOffOutline></IoEyeOffOutline> </div>
+                visible ? <div onClick={()=>setVisible(false)} className="">  <GoEye></GoEye></div> :<div onClick={()=>setVisible(true)}><IoEyeOffOutline></IoEyeOffOutline> </div>
               }
                     </div>
-                    <input type={visible?'text':'password'} name="password" placeholder="password" className="input input-bordered" required />
 
                 </div>
                 <div className=" ">

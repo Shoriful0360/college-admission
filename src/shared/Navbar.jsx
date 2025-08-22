@@ -5,6 +5,7 @@ import useAuth from "../hook/useAuth";
 
 const Navbar = () => {
   const{user}=useAuth()
+  console.log('user',user)
 
 // const{user}=useContext(AuthContext)
   const link = <>
@@ -72,7 +73,7 @@ const Navbar = () => {
       </ul>
     </div>
     :
-   <Link to={'/register'}> <button className="btn bg-blue-700 text-white">Login</button></Link>
+   <Link to={'/login'}> <button className="btn bg-blue-700 text-white">Login</button></Link>
     }
 
    

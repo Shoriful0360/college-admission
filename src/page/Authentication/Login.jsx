@@ -2,9 +2,10 @@ import Lottie from 'lottie-react';
 import login_animate from '../../assets/login/Animated mobile app login.json'
 import { Link, useLocation, useNavigate } from 'react-router';
 import { FcGoogle } from 'react-icons/fc';
-
+import { GoEye } from "react-icons/go";
+import { IoEyeOffOutline } from "react-icons/io5";
 import toast from 'react-hot-toast';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import useAuth from '../../hook/useAuth';
 
 const Login = () => {
@@ -12,6 +13,7 @@ const Login = () => {
   const navigate=useNavigate()
   const emailRef=useRef()
   const location=useLocation()
+  const [visible,setVisible]=useState(true)
  
 
   // login form
@@ -74,11 +76,19 @@ forgetPassword(email)
       </label>
       <input type="email" name="email" ref={emailRef} placeholder="email" className="input input-bordered" required />
     </div>
-    <div className="form-control">
+       {/* password */}
+    <div className="form-control relative">
       <label className="label">
         <span className="label-text">Password</span>
       </label>
-      <input type="password" name="password" placeholder="password" className="input input-bordered" required />
+     
+                         
+      <input type={visible?'text':'password'} name="password" placeholder="password" className="input input-bordered" required />
+       <div className='absolute  right-5 top-1/2 -translate-y-1/2  cursor-pointer'>
+                          {
+                      visible ? <div onClick={()=>setVisible(false)} className="">  <GoEye></GoEye></div> :<div onClick={()=>setVisible(true)}><IoEyeOffOutline></IoEyeOffOutline> </div>
+                    }
+                          </div>
       <label className="label">
         <a href="#" onClick={handleforgotPass} className="label-text-alt cursor-pointer link link-hover">Forgot password?</a>
       </label>
