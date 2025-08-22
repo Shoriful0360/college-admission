@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../firebase/firebase.init";
 
@@ -7,6 +7,7 @@ export const authContext=createContext()
 
 
 const AuthProvider = ({children}) => {
+    const provider=new GoogleAuthProvider()
     const[user,setUser]=useState()
     const[loading,setLoading]=useState(true)
 
@@ -17,6 +18,39 @@ const AuthProvider = ({children}) => {
         
       
     }
+       
+
+    // login with email and passwore
+ 
+const loginUser=(email,password)=>{
+    setLoading(true)
+    return signInWithEmailAndPassword(auth,email,password)
+}
+// logout user
+    const logOut=()=>{
+        return signOut(auth)
+    } 
+
+// login with google
+const googleLogin=()=>{
+    setLoading(true)
+return signInWithPopup(auth,provider)
+
+}
+
+// update user profile
+const updateUserProfile=(name,photoUrl)=>{
+
+    return updateProfile(auth.currentUser,{
+        displayName:name,photoURL:photoUrl
+    })
+}
+
+// forget  password
+const forgetPassword=(email)=>{
+    setLoading(true)
+return sendPasswordResetEmail(auth,email)
+}
 
     // on auth stage check
     useEffect(()=>{
@@ -25,6 +59,8 @@ const AuthProvider = ({children}) => {
         if(currentUser?.email){
            setUser(currentUser)
            setLoading(false)
+        }else{
+            setUser(null)
         }
        })
 
@@ -36,9 +72,9 @@ const AuthProvider = ({children}) => {
 
 
      const authInfo={
-        createUser,user,setUser,loading
+        createUser,user,setUser,loading,loginUser,logOut,googleLogin
     }
-// logOut,loginUser,googleLogin,updateUserProfile,forgetPassword
+// ,loginUser,,updateUserProfile,forgetPassword
     return (
         <div>
             <authContext.Provider value={authInfo}>

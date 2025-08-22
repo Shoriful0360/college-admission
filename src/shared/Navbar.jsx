@@ -4,10 +4,10 @@ import useAuth from "../hook/useAuth";
 
 
 const Navbar = () => {
-  const{user}=useAuth()
-  console.log('user',user)
+  const{user,logOut}=useAuth()
+ 
 
-// const{user}=useContext(AuthContext)
+
   const link = <>
     <li className='text-sm bg-blue-500 bg-clip-text text-transparent font-bold  px-4 py-2'>
       <NavLink to='/'>Home</NavLink>
@@ -23,7 +23,7 @@ const Navbar = () => {
     </li>
     
   </>
-  // const { user, logout } = useContext(AuthContext)
+
  
   return (
   <div className="navbar  ">
@@ -52,13 +52,16 @@ const Navbar = () => {
     {
       user?
        <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-        <div className="w-10 rounded-full">
-          <img
-            alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-        </div>
-      </div>
+     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+  <div className="w-10 rounded-full  flex items-center justify-center">
+    <img
+   
+      alt="Tailwind CSS Navbar component"
+      src="https://img.icons8.com/?size=64&id=43964&format=png"
+    />
+  </div>
+</div>
+
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
@@ -69,7 +72,7 @@ const Navbar = () => {
           </a>
         </li>
         <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li onClick={logOut}><a>Logout</a></li>
       </ul>
     </div>
     :
