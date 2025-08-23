@@ -9,11 +9,15 @@ import MyCollege from '../page/MyCollege';
 import CollegesDetails from '../page/CollegesDetails';
 import Register from '../page/Authentication/Register';
 import Login from '../page/Authentication/Login';
+import Profile from '../page/Profile';
+import NotFound from '../shared/NotFound';
 
 const RouteProvider = () => {
     return (
         <div>
             <Routes>
+                {/* error message */}
+                <Route path='*' element={<NotFound/>}/>
                 <Route path='/' element={<HomeLayout/>}>
                 <Route path='/' element={<HomePage/>}></Route>
                 <Route path='/colleges' element={<Colleges/>} />
@@ -22,6 +26,8 @@ const RouteProvider = () => {
                 <Route path='my_colleges' element={<MyCollege/>} />
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/login' element={<Login/>}/>
+                <Route path='/profile' element={<Profile/>}/>
+                
                 </Route>
                 
             </Routes>

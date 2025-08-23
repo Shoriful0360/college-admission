@@ -1,12 +1,16 @@
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import useAuth from "../hook/useAuth";
 
 
 
 const Navbar = () => {
   const{user,logOut}=useAuth()
+  const naigate=useNavigate()
  
-
+const handleLogout=()=>{
+  logOut()
+  naigate('/login')
+}
 
   const link = <>
     <li className='text-sm bg-blue-500 bg-clip-text text-transparent font-bold  px-4 py-2'>
@@ -66,13 +70,13 @@ const Navbar = () => {
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
         <li>
-          <a className="justify-between">
+          <Link to={'/profile'} className="justify-between">
             Profile
         
-          </a>
+          </Link>
         </li>
-        <li><a>Settings</a></li>
-        <li onClick={logOut}><a>Logout</a></li>
+        
+        <li onClick={handleLogout}><a>Logout</a></li>
       </ul>
     </div>
     :

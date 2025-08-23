@@ -16,9 +16,9 @@ const Register = () => {
     const handleFormSubmit=async(e)=>{
         e.preventDefault()
         const form=e.target;
-        // const name=form.name.value;
+        const name=form.name.value;
         const email=form.email.value;
-        // const photoUrl=form.photoUrl.value;
+        const photoUrl=form.photoUrl.value;
         const password=form.password.value;
         const checkbox=e.target.terms.checked;
     //  console.log(name,email,password,photoUrl)
@@ -54,10 +54,10 @@ const Register = () => {
         return;
       }  
       try{
-       await createUser(email,password)
+      const result= await createUser(email,password)
 
-    //    await updateUserProfile(name,photoUrl)
-    //   setUser({...result?.user, displayName:name,photoURL:photoUrl})
+       await updateUserProfile(name,photoUrl)
+      setUser({...result?.user, displayName:name,photoURL:photoUrl})
       toast.success('Signup is successfuylly')
       form.reset()
       navigate('/')
@@ -91,12 +91,12 @@ const Register = () => {
                     <input type="text" name="name" placeholder="Enter your name" className="input input-bordered" required />
                 </div>
                 {/* photo url */}
-                {/* <div className="form-control">
+                <div className="form-control">
                     <label className="label">
                         <span className="label-text">Photo URL</span>
                     </label>
                     <input type="url" name="photoUrl" placeholder="Enter your photo URL" className="input input-bordered"  />
-                </div> */}
+                </div>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Email</span>
