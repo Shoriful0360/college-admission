@@ -2,20 +2,39 @@ import React from 'react';
 import Search from '../shared/Search';
 import CollegeCard from '../component/Home/CollegeCard';
 import CollegeGallery from '../component/Home/CollegeGallery';
-import ResearchPapers from '../component/Home/ResearchPaperCard';
 import ResearchPapersCard from '../component/Home/ResearchPaperCard';
 import ReviewSection from '../component/Home/ReviewSection';
+import {useQuery } from '@tanstack/react-query';
+import UseAxios from '../hook/useAxios';
+
+import Spinner from '../shared/Spinner';
 
 const HomePage = () => {
+
+ const axiosSecure=UseAxios()
+   
+    const {data:colleges,isLoading}=useQuery({
+        queryKey:['colleges'],
+    
+        queryFn:async()=>{
+            const {data}=await axiosSecure.get(`/limit_colleges`)
+            return(data)
+        }
+    })
+
+    if(isLoading) return<Spinner/>
+
     return (
         <div className='mt-10 space-y-10'> 
            {/* search */}
            <Search/>
           <div className='grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10'>
+            {
+                colleges?.map((college)=><CollegeCard college={college}/>)
+            }
        
-             <CollegeCard/>
-             <CollegeCard/>
-             <CollegeCard/>
+             
+            
           </div>
           
             <CollegeGallery/>

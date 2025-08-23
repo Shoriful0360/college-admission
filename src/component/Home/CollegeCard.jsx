@@ -1,21 +1,7 @@
 import { Link } from "react-router";
 
-export default function CollegeCard() {
-  const college = {
-id: 1,
-name: "Greenfield University",
-image:
-"https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=800&q=80",
-admission: "March 10 - June 15, 2025",
-   rating: 4,
-     researchCount: 24,
-admissionProcess:
-"Step 1: Submit online application. Step 2: Appear in the entrance test. Step 3: Shortlisted students will be called for interview. Step 4: Final merit list published with admission confirmation.",
-events: ["Tech Fest 2025", "Cultural Week", "Innovation Summit"],
-research:
-"Ranked top 10 in AI & Data Science Research with over 200+ published papers.",
-sports: ["Football", "Basketball", "Athletics"],
-}
+export default function CollegeCard({college}) {
+
 
   return (
   
@@ -38,9 +24,9 @@ sports: ["Football", "Basketball", "Athletics"],
         </p>
 
         <div className="flex justify-between items-center mb-3">
-          <p className="text-yellow-500 font-semibold"><span className="text-black">Rating :</span> {"★".repeat(college.rating)}{"☆".repeat(5-college.rating)} </p>
+          <p className="text-yellow-500 font-semibold"><span className="text-black">Rating :</span> ★ {college.rating} </p>
           <p className="text-sm font-bold text-gray-600">
-            Research Papers: {college.researchCount}
+            Research Papers: {college.researchPaper}
           </p>
         </div>
 
