@@ -59,11 +59,18 @@ const handleLogout=()=>{
        <div className="dropdown dropdown-end">
      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
   <div className="w-10 rounded-full  flex items-center justify-center">
-    <img
+    {
+      user?.photoURL?<img
+      src={user?.photoURL}
+      />:
+         <img
    
       alt="Tailwind CSS Navbar component"
-      src="https://img.icons8.com/?size=64&id=43964&format=png"
+  
+      src={`https://img.icons8.com/?size=64&id=43964&format=png`}
     />
+    }
+ 
   </div>
 </div>
 
