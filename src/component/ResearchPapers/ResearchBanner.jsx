@@ -3,7 +3,7 @@ export default function ResearchBanner() {
     <section className="relative w-full h-64 md:h-96 flex items-center justify-center bg-gradient-to-r from-indigo-900 via-purple-800 to-black overflow-hidden">
       {/* Background image with overlay */}
       <img
-        src="https://images.unsplash.com/photo-1581091215363-0fbe6ff034f0?auto=format&fit=crop&w=1600&q=80"
+        src="https://images.unsplash.com/photo-1570929057588-6952f7dd2305?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHJlc2VhcmNoJTIwcGFwZXJzfGVufDB8fDB8fHww"
         alt="Research Banner"
         className="absolute inset-0 w-full h-full object-cover opacity-40"
       />

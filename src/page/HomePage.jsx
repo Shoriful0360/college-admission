@@ -4,6 +4,7 @@ import CollegeCard from '../component/Home/CollegeCard';
 import CollegeGallery from '../component/Home/CollegeGallery';
 import ResearchPapers from '../component/Home/ResearchPaperCard';
 import ResearchPapersCard from '../component/Home/ResearchPaperCard';
+import ReviewSection from '../component/Home/ReviewSection';
 
 const HomePage = () => {
     return (
@@ -19,6 +20,7 @@ const HomePage = () => {
           
             <CollegeGallery/>
             <ResearchPapersCard/>
+            <ReviewSection></ReviewSection>
           
         </div>
     );

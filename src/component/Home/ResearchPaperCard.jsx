@@ -1,5 +1,8 @@
+import { Link } from "react-router";
+
 const papers = [
   {
+    id: "ai-education",
     title: "AI in Modern Education",
     author: "John Doe, Jane Smith",
     description: "An extensive study on AI integration in classroom learning.",
@@ -7,30 +10,19 @@ const papers = [
     tags: ["AI", "Education"],
   },
   {
+    id: "sustainable-energy",
     title: "Sustainable Energy Solutions",
     author: "Ali Hasan",
     description: "Exploring alternative energy methods for urban areas.",
     link: "https://example.com/energy-paper.pdf",
     tags: ["Environment", "Energy"],
   },
-  {
-    title: "Urban Water Management",
-    author: "Maria Lopez",
-    description: "Innovative techniques for sustainable city water systems.",
-    link: "https://example.com/water-paper.pdf",
-    tags: ["Environment", "Urban Planning"],
-  },
-  {
-    title: "Blockchain in Finance",
-    author: "David Kim",
-    description: "A study on blockchain applications in modern banking.",
-    link: "https://example.com/blockchain-paper.pdf",
-    tags: ["Blockchain", "Finance"],
-  },
 ];
+
 
 export default function ResearchPapersCard() {
   return (
+ 
     <section className="py-16 px-4 bg-white">
       <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
         Recommended Research Papers
@@ -54,13 +46,14 @@ export default function ResearchPapersCard() {
                 </span>
               ))}
             </div>
-            <a
-              href={paper.link}
-              target="_blank"
+            <Link
+             to={`/research_papers/${paper.id}`}
+             
+
               className="inline-block mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-500 transition-colors"
             >
               Read Paper
-            </a>
+            </Link>
           </div>
         ))}
       </div>

@@ -11,6 +11,7 @@ import Register from '../page/Authentication/Register';
 import Login from '../page/Authentication/Login';
 import Profile from '../page/Profile';
 import NotFound from '../shared/NotFound';
+import ResearchPapers from '../page/ResearchPapers';
 
 const RouteProvider = () => {
     return (
@@ -27,6 +28,7 @@ const RouteProvider = () => {
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/profile' element={<Profile/>}/>
+                <Route path='/research_papers/:paperId' element={<ResearchPapers/>}/>
                 
                 </Route>
                 
