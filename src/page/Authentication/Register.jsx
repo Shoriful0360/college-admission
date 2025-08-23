@@ -11,7 +11,8 @@ import Swal from "sweetalert2";
 const Register = () => {
     const [visible,setVisible]=useState(false)
     const navigate=useNavigate()
-    const {createUser,setUser,updateUserProfile}=useAuth()
+    const {createUser,setUser,updateUserProfile,user}=useAuth()
+    console.log(user)
 
     const handleFormSubmit=async(e)=>{
         e.preventDefault()

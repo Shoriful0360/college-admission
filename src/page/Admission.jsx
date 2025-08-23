@@ -21,6 +21,7 @@ export default function AdmissionPage() {
     image: null,
   });
 
+  console.log(formData)
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setFormData({
@@ -142,8 +143,9 @@ export default function AdmissionPage() {
 
 
               <input
-              onFocus={(e)=>e.target.type="file"}
-              onBlur={(e)=>e.target.type="text"}
+              type="file"
+              // onFocus={(e)=>e.target.type="file"}
+              // onBlur={(e)=>e.target.type="text"}
              placeholder="Your image"
                 name="image"
                 accept="image/*"
