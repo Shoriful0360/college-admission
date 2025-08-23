@@ -1,6 +1,7 @@
 import React from 'react';
 import Search from '../shared/Search';
 import CollegeCard from '../component/Home/CollegeCard';
+import CollegeGallery from '../component/Home/CollegeGallery';
 
 const HomePage = () => {
     return (
@@ -12,6 +13,9 @@ const HomePage = () => {
              <CollegeCard/>
              <CollegeCard/>
              <CollegeCard/>
+          </div>
+          <div>
+            <CollegeGallery/>
           </div>
         </div>
     );
