@@ -29,6 +29,13 @@ className="w-full h-130 object-cover rounded-2xl mb-6"
 <p className="text-lg mb-4">
 <span className="font-semibold">Admission Dates:</span> {college.admission}
 </p>
+
+        <div className="flex gap-10 mb-3">
+          <p className="text-yellow-500 text-lg font-semibold"><span className="text-black">Rating :</span> ★ {college.rating} </p>
+          <p className=" font-bold text-lg text-gray-600">
+            Research Papers: {college.researchPaper}
+          </p>
+        </div>
 <p className="text-lg mb-4">
 <span className="font-semibold">Admission Process:</span> {
 college?.admissionProcess.map((item,idx)=><li key={idx} >{item}</li>)

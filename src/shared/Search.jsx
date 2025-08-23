@@ -1,6 +1,12 @@
 
 
-const Search = () => {
+const Search = ({setSearch,refetch}) => {
+
+  const handleChange=(e)=>{
+    setSearch(e.target.value)
+    refetch()
+
+  }
     return (
 <div className='flex justify-center'>
           <label className="input">
@@ -16,7 +22,7 @@ const Search = () => {
       <path d="m21 21-4.3-4.3"></path>
     </g>
   </svg>
-  <input type="search" required placeholder="Search your favourite college name" />
+  <input onChange={handleChange} type="search" required placeholder="Search your favourite college name" />
 </label>
 </div>
     );

@@ -8,6 +8,7 @@ import {useQuery } from '@tanstack/react-query';
 import UseAxios from '../hook/useAxios';
 
 import Spinner from '../shared/Spinner';
+import { Link } from 'react-router';
 
 const HomePage = () => {
 
@@ -36,9 +37,16 @@ const HomePage = () => {
              
             
           </div>
-          
+             <div className='flex justify-center '>
+                 <Link to={ `/colleges`} >
+        <button className=" px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-500 transition">
+          View Details
+        </button>
+      </Link>
+             </div>
             <CollegeGallery/>
             <ResearchPapersCard/>
+          
             <ReviewSection></ReviewSection>
           
         </div>
