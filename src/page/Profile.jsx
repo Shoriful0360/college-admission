@@ -1,6 +1,13 @@
+import useAuth from "../hook/useAuth";
+import useFetch from "../hook/useFetch";
+import Spinner from "../shared/Spinner";
 
 
 const Profile = () => {
+ const {userInfo,isLoading}=useFetch()
+ if(isLoading) return<Spinner/>
+ console.log(userInfo)
+  // const {name,image,email}
     return (
         <div className="w-full md:w-2/3 mx-auto rounded-xl p-6 mt-10 shadow-md">
         <div className="flex justify-between items-center border-b border-dashed pb-2 mb-4">
