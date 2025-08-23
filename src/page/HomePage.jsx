@@ -2,11 +2,12 @@ import React from 'react';
 import Search from '../shared/Search';
 import CollegeCard from '../component/Home/CollegeCard';
 import CollegeGallery from '../component/Home/CollegeGallery';
-import ResearchPapers from '../component/Home/ResearchPaper';
+import ResearchPapers from '../component/Home/ResearchPaperCard';
+import ResearchPapersCard from '../component/Home/ResearchPaperCard';
 
 const HomePage = () => {
     return (
-        <div className='mt-10'> 
+        <div className='mt-10 space-y-10'> 
            {/* search */}
            <Search/>
           <div className='grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10'>
@@ -17,7 +18,7 @@ const HomePage = () => {
           </div>
           
             <CollegeGallery/>
-            <ResearchPapers/>
+            <ResearchPapersCard/>
           
         </div>
     );

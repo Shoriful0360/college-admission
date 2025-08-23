@@ -13,29 +13,42 @@ const papers = [
     link: "https://example.com/energy-paper.pdf",
     tags: ["Environment", "Energy"],
   },
-  // add more papers here
+  {
+    title: "Urban Water Management",
+    author: "Maria Lopez",
+    description: "Innovative techniques for sustainable city water systems.",
+    link: "https://example.com/water-paper.pdf",
+    tags: ["Environment", "Urban Planning"],
+  },
+  {
+    title: "Blockchain in Finance",
+    author: "David Kim",
+    description: "A study on blockchain applications in modern banking.",
+    link: "https://example.com/blockchain-paper.pdf",
+    tags: ["Blockchain", "Finance"],
+  },
 ];
 
-export default function ResearchPapers() {
+export default function ResearchPapersCard() {
   return (
-    <section className="py-16 px-4 bg-gradient-to-r from-indigo-900 via-purple-900 to-black">
-      <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+    <section className="py-16 px-4 bg-white">
+      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
         Recommended Research Papers
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {papers.map((paper, idx) => (
           <div
             key={idx}
-            className="relative p-6 rounded-2xl bg-white/10 backdrop-blur-md shadow-lg hover:scale-105 transform transition-all duration-300 cursor-pointer"
+            className="relative p-6 rounded-2xl bg-gray-50 shadow-lg hover:shadow-2xl hover:scale-105 transform transition-all duration-300 cursor-pointer"
           >
-            <h3 className="text-xl font-semibold text-white mb-2">{paper.title}</h3>
-            <p className="text-sm text-gray-300 mb-4">By {paper.author}</p>
-            <p className="text-gray-200 text-sm line-clamp-3">{paper.description}</p>
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">{paper.title}</h3>
+            <p className="text-sm text-gray-500 mb-4">By {paper.author}</p>
+            <p className="text-gray-600 text-sm line-clamp-3">{paper.description}</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {paper.tags.map((tag, i) => (
                 <span
                   key={i}
-                  className="bg-white/20 text-white text-xs px-2 py-1 rounded-full"
+                  className="bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded-full"
                 >
                   {tag}
                 </span>
