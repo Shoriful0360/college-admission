@@ -8,7 +8,7 @@ import UseAxios from "./useAxios";
 const useFetch = () => {
     const axiosSecure=UseAxios()
     const{user}=useAuth()
-    const {data:userInfo,isLoading}=useQuery({
+    const {data:userInfo,isLoading,refetch}=useQuery({
         queryKey:['user',user?.email],
         enabled:!!user,
         queryFn:async()=>{
@@ -16,7 +16,7 @@ const useFetch = () => {
             return(data)
         }
     })
-    return {userInfo,isLoading}
+    return {userInfo,isLoading,refetch}
 };
 
 export default useFetch;

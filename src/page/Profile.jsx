@@ -1,41 +1,69 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import useAuth from "../hook/useAuth"
 import useFetch from "../hook/useFetch"
 import Spinner from "../shared/Spinner"
-import axios from "axios"
+import UseAxios from "../hook/useAxios"
+import Swal from "sweetalert2"
 
 const Profile = () => {
-  const { user, loading } = useAuth()
-  const { userInfo, isLoading } = useFetch()
+  const { user, loading, updateUserProfile } = useAuth()
+  const { userInfo, isLoading, refetch } = useFetch()
+  const axiosPublic = UseAxios()
   const { name, image, email, address, university, _id } = userInfo || {}
 
   const [isEditing, setIsEditing] = useState(false)
   const [formData, setFormData] = useState({
-    name: name || "",
-    image: image || "",
-    email: email || "",
-    university: university || "",
-    address: address || ""
+    name: "",
+    image: "",
+    email: "",
+    university: "",
+    address: ""
   })
+
+  // Sync formData whenever userInfo changes
+  useEffect(() => {
+    if (userInfo) {
+      setFormData({
+        name: name || "",
+        image: image || "",
+        email: email || "",
+        university: university || "",
+        address: address || ""
+      })
+    }
+  }, [userInfo])
+  console.log(formData)
 
   if (loading || isLoading) return <Spinner />
 
-  // input change handler
+  // Input change handler
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
-  // save updated data
+  // Save updated data
   const handleSave = async () => {
+    console.log(formData)
+
+    
     try {
-      const res = await axios.put(
-        `http://localhost:5000/users/${email}`,
-        formData
-      )
-      console.log("Updated:", res.data)
+      const res = await axiosPublic.put(`users/${user?.email}`, formData)
+      if(res.data.acknowledged){
+        await updateUserProfile(formData.name, formData.image)
+        Swal.fire({
+  position: "top-center",
+  icon: "success",
+  title: "Your work has been saved",
+  showConfirmButton: false,
+  timer: 1500
+});
+
+      }
+     // Refetch updated info from server
+      refetch()
 
       setIsEditing(false)
-      alert("Profile updated successfully!")
+    
     } catch (err) {
       console.error(err)
     }
@@ -52,7 +80,7 @@ const Profile = () => {
         <div className="flex flex-col items-center justify-center p-4 -mt-16">
           <img
             alt="profile"
-            src={formData.image || image}
+            src={formData?.image || image}
             className="mx-auto object-cover rounded-full h-24 w-24 border-2 border-white "
           />
 
@@ -63,14 +91,14 @@ const Profile = () => {
             Id: M-{_id?.toString().substring(0, 5).toUpperCase()}
           </p>
 
-          {/* 🔥 Show form if editing */}
+          {/* Show form if editing */}
           {isEditing ? (
             <div className="w-full p-4">
               <div className="grid grid-cols-1 gap-3 text-sm">
                 <input
                   type="text"
                   name="name"
-                  value={formData.name}
+                  value={formData?.name}
                   onChange={handleChange}
                   placeholder="Name"
                   className="border rounded-lg px-3 py-2"
@@ -78,7 +106,7 @@ const Profile = () => {
                 <input
                   type="text"
                   name="university"
-                  value={formData.university}
+                  value={formData?.university}
                   onChange={handleChange}
                   placeholder="University"
                   className="border rounded-lg px-3 py-2"
@@ -86,7 +114,7 @@ const Profile = () => {
                 <input
                   type="text"
                   name="address"
-                  value={formData.address}
+                  value={formData?.address}
                   onChange={handleChange}
                   placeholder="Address"
                   className="border rounded-lg px-3 py-2"
@@ -94,7 +122,7 @@ const Profile = () => {
                 <input
                   type="text"
                   name="image"
-                  value={formData.image}
+                  value={formData?.image}
                   onChange={handleChange}
                   placeholder="Profile Image URL"
                   className="border rounded-lg px-3 py-2"
@@ -121,12 +149,12 @@ const Profile = () => {
               <div className="grid grid-cols-2 justify-between gap-4 text-sm text-gray-600">
                 <p className="flex flex-col">
                   Name
-                  <span className="font-bold text-black">{formData.name}</span>
+                  <span className="font-bold text-black">{formData?.name}</span>
                 </p>
                 <p className="flex flex-col">
                   University
                   <span className="font-bold text-black">
-                    {formData.university?formData.university:"N/A"}
+                    {formData.university ? formData.university : "N/A"}
                   </span>
                 </p>
                 <p className="flex flex-col">
@@ -136,7 +164,7 @@ const Profile = () => {
                 <p className="flex flex-col">
                   Address
                   <span className="font-bold text-black">
-                    {formData.address?formData.address:"N/A"}
+                    {formData.address ? formData.address : "N/A"}
                   </span>
                 </p>
               </div>
