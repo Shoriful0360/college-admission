@@ -1,24 +1,21 @@
+import { useQuery } from "@tanstack/react-query";
+import UseAxios from "../../hook/useAxios";
+import Spinner from "../../shared/Spinner";
 
 
-const Details = () => {
-    const college ={
-    id: 1,
-    name: "Greenfield University",
-    image:
-      "https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=800&q=80",
-    description: `Greenfield University is a leading institution known for academic excellence and innovation. It offers a diverse range of undergraduate and postgraduate programs. The campus is equipped with modern laboratories and state-of-the-art research facilities. Students enjoy a vibrant campus life with clubs, societies, and cultural events. The university emphasizes holistic development, including sports, arts, and leadership programs. It has strong industry partnerships that help students gain practical experience. Greenfield University encourages international collaborations and student exchange programs. Faculty members are renowned experts in their respective fields. The university has a robust research culture with over 200 publications annually. Overall, it prepares students to excel in their careers and contribute meaningfully to society.`,
-    admission: "March 10 - June 15, 2025",
-   admissionProcess: [
-      "Step 1: Submit online application.",
-      "Step 2: Appear in the entrance test.",
-      "Step 3: Shortlisted students will be called for interview.",
-      "Step 4: Final merit list published with admission confirmation."
-    ],
-    events: ["Tech Fest 2025", "Cultural Week", "Innovation Summit"],
-    research:
-      "Ranked top 10 in AI & Data Science Research with over 200+ published papers.",
-    sports: ["Football", "Basketball", "Athletics"],
-  }
+const Details = ({id}) => {
+console.log(id)
+  const axiosSecure=UseAxios()
+    const {data:college,isLoading}=useQuery({
+        queryKey:['college_details',id],
+        enabled:!!id,
+        queryFn:async()=>{
+            const {data}=await axiosSecure.get(`/college/${id}`)
+            return(data)
+        }
+    })
+    
+    if(isLoading) return <Spinner/>
 
 
     return (

@@ -56,7 +56,7 @@ export default function CollegeCard({college}) {
 
         {/* Button */}
     <div className="flex justify-between">
-        <Link to="/colleges/details">
+        <Link to={ `/colleges/${college._id}`}>
         <button className="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-500 transition">
           View Details
         </button>

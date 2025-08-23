@@ -22,7 +22,7 @@ const RouteProvider = () => {
                 <Route path='/' element={<HomeLayout/>}>
                 <Route path='/' element={<HomePage/>}></Route>
                 <Route path='/colleges' element={<Colleges/>} />
-                <Route path={`/colleges/details`} element={<CollegesDetails/>}/>
+                <Route path={`/colleges/:id`} element={<CollegesDetails/>}/>
                 <Route path='/admission' element={<Admission/>} />
                 <Route path='my_colleges' element={<MyCollege/>} />
                 <Route path='/register' element={<Register/>}/>
