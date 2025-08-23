@@ -1,59 +1,159 @@
-import useAuth from "../hook/useAuth";
-import useFetch from "../hook/useFetch";
-import Spinner from "../shared/Spinner";
-
+import { useState } from "react"
+import useAuth from "../hook/useAuth"
+import useFetch from "../hook/useFetch"
+import Spinner from "../shared/Spinner"
+import axios from "axios"
 
 const Profile = () => {
- const {userInfo,isLoading}=useFetch()
- if(isLoading) return<Spinner/>
- console.log(userInfo)
-  // const {name,image,email}
-    return (
-        <div className="w-full md:w-2/3 mx-auto rounded-xl p-6 mt-10 shadow-md">
-        <div className="flex justify-between items-center border-b border-dashed pb-2 mb-4">
-          <h3 className="text-lg font-bold">My Profile</h3>
-          <button className="">
-            ✏️ Edit
-          </button>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mb-6">
-          <p><span className="font-semibold">Full Name:</span> MD Shoriful Islam</p>
-          <p><span className="font-semibold">Email:</span> shorifulbba0360@gmail.com</p>
-          <p><span className="font-semibold">Student ID:</span> WEB10-1221</p>
-          <p><span className="font-semibold">Mobile Number:</span> +8801307177507</p>
-        </div>
+  const { user, loading } = useAuth()
+  const { userInfo, isLoading } = useFetch()
+  const { name, image, email, address, university, _id } = userInfo || {}
 
-        <h4 className="text-md font-semibold text-purple-400 mb-2 border-b border-dashed pb-1">Device Activity</h4>
-        <div className="overflow-x-auto">
-          <table className="table w-full text-sm">
-            <thead className="text-purple-300">
-              <tr>
-                <th>Serial</th>
-                <th>Platform</th>
-                <th>Date</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                { serial: 1, platform: "Windows 10", date: "15-04-2025 06:08 AM" },
-                { serial: 2, platform: "Android 33", date: "06-03-2025 09:57 PM" },
-                { serial: 3, platform: "Windows 10", date: "22-02-2025 07:44 PM" },
-              ].map((device) => (
-                <tr key={device.serial}>
-                  <td>{device.serial}</td>
-                  <td>{device.platform}</td>
-                  <td>{device.date}</td>
-                  <td>
-                    <button className="text-purple-400 hover:underline">Remove</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+  const [isEditing, setIsEditing] = useState(false)
+  const [formData, setFormData] = useState({
+    name: name || "",
+    image: image || "",
+    email: email || "",
+    university: university || "",
+    address: address || ""
+  })
+
+  if (loading || isLoading) return <Spinner />
+
+  // input change handler
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  // save updated data
+  const handleSave = async () => {
+    try {
+      const res = await axios.put(
+        `http://localhost:5000/users/${email}`,
+        formData
+      )
+      console.log("Updated:", res.data)
+
+      setIsEditing(false)
+      alert("Profile updated successfully!")
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <div className="bg-white shadow-lg rounded-2xl md:w-4/5 lg:w-3/5">
+        <img
+          alt="cover photo"
+          src="https://images.unsplash.com/photo-1585016495481-91613a3ab1bc?w=500&auto=format&fit=crop&q=60"
+          className="w-full mb-4 object-cover rounded-t-lg h-65"
+        />
+        <div className="flex flex-col items-center justify-center p-4 -mt-16">
+          <img
+            alt="profile"
+            src={formData.image || image}
+            className="mx-auto object-cover rounded-full h-24 w-24 border-2 border-white "
+          />
+
+          <p className="p-2 px-4 text-xs text-white bg-lime-500 rounded-full">
+            Student
+          </p>
+          <p className="mt-2 text-xl font-medium text-gray-800 ">
+            Id: M-{_id?.toString().substring(0, 5).toUpperCase()}
+          </p>
+
+          {/* 🔥 Show form if editing */}
+          {isEditing ? (
+            <div className="w-full p-4">
+              <div className="grid grid-cols-1 gap-3 text-sm">
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Name"
+                  className="border rounded-lg px-3 py-2"
+                />
+                <input
+                  type="text"
+                  name="university"
+                  value={formData.university}
+                  onChange={handleChange}
+                  placeholder="University"
+                  className="border rounded-lg px-3 py-2"
+                />
+                <input
+                  type="text"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  placeholder="Address"
+                  className="border rounded-lg px-3 py-2"
+                />
+                <input
+                  type="text"
+                  name="image"
+                  value={formData.image}
+                  onChange={handleChange}
+                  placeholder="Profile Image URL"
+                  className="border rounded-lg px-3 py-2"
+                />
+              </div>
+
+              <div className="flex gap-3 mt-4">
+                <button
+                  onClick={() => setIsEditing(false)}
+                  className="bg-gray-300 px-6 py-1 rounded-lg hover:bg-gray-400"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleSave}
+                  className="bg-lime-500 px-6 py-1 rounded-lg hover:bg-lime-700 text-white"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="w-full p-2 mt-4 rounded-lg">
+              <div className="grid grid-cols-2 justify-between gap-4 text-sm text-gray-600">
+                <p className="flex flex-col">
+                  Name
+                  <span className="font-bold text-black">{formData.name}</span>
+                </p>
+                <p className="flex flex-col">
+                  University
+                  <span className="font-bold text-black">
+                    {formData.university?formData.university:"N/A"}
+                  </span>
+                </p>
+                <p className="flex flex-col">
+                  Email
+                  <span className="font-bold text-black">{formData.email}</span>
+                </p>
+                <p className="flex flex-col">
+                  Address
+                  <span className="font-bold text-black">
+                    {formData.address?formData.address:"N/A"}
+                  </span>
+                </p>
+              </div>
+              <div className="flex justify-center mt-4">
+                <button
+                  onClick={() => setIsEditing(true)}
+                  className="bg-lime-500 px-10 py-1 rounded-lg text-black cursor-pointer hover:bg-lime-800 block mb-1"
+                >
+                  Update Profile
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-    );
-};
+    </div>
+  )
+}
 
-export default Profile;
+export default Profile
