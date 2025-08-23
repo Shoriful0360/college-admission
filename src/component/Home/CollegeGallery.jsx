@@ -59,7 +59,7 @@ export default function CollegeGallery() {
           Celebrating proud moments of graduates across different colleges.
         </p>
         </div>
-    <div className="relative w-full  flex items-center justify-center bg-gradient-to-tr from-indigo-900 via-purple-900 to-black overflow-hidden px-4">
+    <div className="relative w-full  flex items-center justify-center bg-gradient-to-tr from-blue-500 via-green-800 to-orange-400 overflow-hidden px-4">
       <div ref={containerRef} className="relative w-full max-w-[600px] h-[600px] md:h-[500px] sm:h-[400px]">
         {graduates.map((grad, idx) => {
           const theta = (idx / graduates.length) * Math.PI * 2 + angle;
