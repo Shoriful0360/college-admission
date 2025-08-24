@@ -31,7 +31,7 @@ const HomePage = () => {
         <Banner/>
            {/* search */}
           <h1 className='text-2xl font-bold text-center underline underline-offset-8'>Top College & University</h1>
-          <div className='grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10'>
+          <div className='grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 mt-10'>
             {
                 colleges?.map((college)=><CollegeCard key={college._id} college={college}/>)
             }

@@ -5,7 +5,7 @@ export default function CollegeCard({college}) {
 
   return (
   
-         <div className="max-w-md mx-auto bg-white shadow-lg rounded-2xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+         <div className="  bg-white shadow-lg rounded-2xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
       {/* Image */}
       <img
         src={college.image}
