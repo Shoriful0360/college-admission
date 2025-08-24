@@ -22,7 +22,7 @@ export default function AdmissionPage() {
   const [formData, setFormData] = useState({
     candidateName: "",
     subject: "",
-    email: "",
+    email: user?.email,
     phone: "",
     address: "",
     dob: "",

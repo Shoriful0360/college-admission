@@ -41,7 +41,7 @@ const ReviewModal = ({ isOpen, onClose, onSubmit }) => {
             value={review}
             onChange={(e) => setReview(e.target.value)}
             placeholder="Write your review..."
-            className="w-full border rounded-lg px-3 py-2 mb-4 focus:ring-2 focus:ring-indigo-400"
+            className="w-full border rounded-lg px-3 py-2 h-56 mb-4 focus:ring-2 focus:ring-indigo-400"
             required
           ></textarea>
 
