@@ -1,24 +1,15 @@
 import { useState } from "react";
-import UseAxios from "../hook/useAxios";
-import { useQuery } from "@tanstack/react-query";
-import Spinner from "../shared/Spinner";
-import { imageUpload } from "../hook/imageUpload";
-import useAuth from "../hook/useAuth";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router";
+import { imageUpload } from "../../hook/imageUpload";
 
 
-export default function AdmissionPage() {
-  const {user}=useAuth()
-   const axiosSecure=UseAxios()
-   const navigate=useNavigate()
+export default function AdmissionForm({college}) {
    const[imgUpload,setImgUpload]=useState(
    {
     image:""
    }
    )
-  const [selectedCollege, setSelectedCollege] = useState();
- // 🔹 track submit
+  const [selectedCollege, setSelectedCollege] = useState(null);
+  const [submitted, setSubmitted] = useState(false); // 🔹 track submit
   const [formData, setFormData] = useState({
     candidateName: "",
     subject: "",
@@ -30,19 +21,7 @@ export default function AdmissionPage() {
   });
 
 
-  // data fetch
-   const {data:colleges,isLoading}=useQuery({
-        queryKey:['college_name'],
-    
-        queryFn:async()=>{
-            const {data}=await axiosSecure.get(`/college_name`)
-            return(data)
-        }
-    })
 
-
-
-    if(isLoading) return<Spinner/>
   const handleChange =async (e) => {
    
    
@@ -56,50 +35,25 @@ export default function AdmissionPage() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-     const dob=await imageUpload(imgUpload?.image)
-     if(dob){
-   formData.image=dob
-   const {data}=await axiosSecure.post('/admission',{ ...formData ,...selectedCollege})
-    if(data.insertedId){
-      Swal.fire({
-  position: "top-center",
-  icon: "success",
-  title: "Admission is Complete",
-  showConfirmButton: false,
-  timer: 1500
-});
-      navigate('/my_colleges')
-    setSelectedCollege(null); 
-    setFormData("")
-    setImgUpload("")
-    }else{
-      alert("something is wrong,please try again")
-    }
- 
-     }
- 
-    // 🔹 Reset back to college list
+     const dob=await imageUpload(imgUpload.image)
+    formData.image=dob
+    console.log("Form Submitted:", { ...formData, college: selectedCollege });
+    setSubmitted(true); // 🔹 Hide form after submit
+    setSelectedCollege(null); // 🔹 Reset back to college list
     
   };
 
   return (
-    <section className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-12">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8 text-center">
-          College Admission
-        </h1>
-
+    <section className=" bg-gray-50 py-12 px-4 sm:px-6 lg:px-12">
+     
+    
         {/* Show College List */}
-      {!selectedCollege  && (
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-4 md:px-0">
-    {colleges.map((college) => (
+      {!selectedCollege && !submitted && (
+
+   
       <div
         key={college._id}
-       onClick={() => setSelectedCollege({
-   colege_id: college.college_id,
-   college_image: college.image,
-   college_name: college.name,
-})}
+        onClick={() => setSelectedCollege(college.name)}
         className="cursor-pointer bg-white shadow-lg rounded-2xl p-6 hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 text-center"
       >
         
@@ -114,15 +68,15 @@ export default function AdmissionPage() {
           Click to view details about {college.name}
         </p>
       </div>
-    ))}
-  </div>
+    
+
 )}
 
         {/* Admission Form */}
-        {selectedCollege  && (
+        {selectedCollege && !submitted && (
           <div className="bg-white shadow-lg rounded-xl p-6 sm:p-8">
             <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-6 text-center">
-              Admission Form - {selectedCollege?.college_name}
+              Admission Form - {selectedCollege}
             </h2>
 
             <form
@@ -153,8 +107,7 @@ export default function AdmissionPage() {
                 type="email"
                 name="email"
                 placeholder="Candidate Email"
-                value={user?.email}
-                disabled
+                value={formData.email}
                 onChange={handleChange}
                 className="border rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-400"
                 required
@@ -213,11 +166,8 @@ export default function AdmissionPage() {
                     
                     />
                     <div className='bg-lime-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-lime-500'>
-                     {imgUpload?.image?.name?
-                     imgUpload?.image?.name
-                    :
-                    "Upload your image"}
-                   
+                     {imgUpload?.image?.name}
+                     {/* {shortImageName(imgUpload?.image)} */}
                     </div>
                   </label>
                 </div>
@@ -239,8 +189,21 @@ export default function AdmissionPage() {
           </div>
         )}
 
-     
-      </div>
+        {/* Success message */}
+        {submitted && (
+          <div className="text-center mt-8">
+            <p className="text-green-600 font-medium">
+              ✅ Your admission form has been submitted.
+            </p>
+            <button
+              onClick={() => setSubmitted(false)}
+              className="mt-4 bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-500 transition"
+            >
+              Back to College List
+            </button>
+          </div>
+        )}
+    
     </section>
   );
 }
