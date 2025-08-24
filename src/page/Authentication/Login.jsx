@@ -49,13 +49,17 @@ toast.error('something is wrong')
     }
 
     // forgot password
-    const handleforgotPass=()=>{
-const email=emailRef.current.value
-forgetPassword(email)
-.then(()=>{
-  toast.success('Pleace check email and reset password')
-})
-    }
+   const handleforgotPass = () => {
+  const email = emailRef.current.value;
+
+  if (!email)       // <- this means email exists
+    alert("required email");   // <- but you're showing "required email" if email exists, which is wrong
+  forgetPassword(email)
+    .then(() => {
+      toast.success('Pleace check email and reset password');
+    })
+}
+
     return (
         <div className="mt-10 flex flex-col justify-center items-center h-screen space-y-4">
         <h1 className="text-center text-4xl font-bold">LogIn Now</h1>

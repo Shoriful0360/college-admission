@@ -5,7 +5,7 @@ export default function ResearchBanner() {
       <img
         src="https://images.unsplash.com/photo-1570929057588-6952f7dd2305?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fHJlc2VhcmNoJTIwcGFwZXJzfGVufDB8fDB8fHww"
         alt="Research Banner"
-        className="absolute inset-0 w-full h-full object-cover opacity-40"
+        className="absolute inset-0 w-full h-full object-cover opacity-50"
       />
 
       {/* Glassmorphism content */}

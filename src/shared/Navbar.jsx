@@ -23,9 +23,13 @@ const handleLogout=()=>{
     <li className='text-sm bg-blue-500 bg-clip-text text-transparent font-bold  px-4 py-2'>
       <NavLink to='/admission'>Admission</NavLink>
     </li>
-    <li className='text-sm bg-blue-500 bg-clip-text text-transparent font-bold  px-4 py-2'>
+    {
+      user &&
+        <li className='text-sm bg-blue-500 bg-clip-text text-transparent font-bold  px-4 py-2'>
       <NavLink to='/my_colleges'>My College</NavLink>
     </li>
+    }
+  
     
   </>
 

@@ -61,11 +61,11 @@ export default function CollegeCard({college}) {
           View Details
         </button>
       </Link>
-      <Link to="/colleges/details">
+      {/* <Link to="/colleges/details">
         <button className="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-500 transition">
           Admission
         </button>
-      </Link>
+      </Link> */}
     </div>
       </div>
     </div>

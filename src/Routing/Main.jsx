@@ -12,6 +12,7 @@ import Login from '../page/Authentication/Login';
 import Profile from '../page/Profile';
 import NotFound from '../shared/NotFound';
 import ResearchPapers from '../page/ResearchPapers';
+import PrivateRoute from '../private/PrivateRoute';
 
 const RouteProvider = () => {
     return (
@@ -24,7 +25,7 @@ const RouteProvider = () => {
                 <Route path='/colleges' element={<Colleges/>} />
                 <Route path={`/colleges/:id`} element={<CollegesDetails/>}/>
                 <Route path='/admission' element={<Admission/>} />
-                <Route path='my_colleges' element={<MyCollege/>} />
+                <Route path='my_colleges' element={<PrivateRoute><MyCollege/></PrivateRoute>} />
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/profile' element={<Profile/>}/>

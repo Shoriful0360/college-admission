@@ -3,12 +3,28 @@ import { useState } from "react";
 const ReviewModal = ({ isOpen, onClose, onSubmit }) => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
+  const [error, setError] = useState(""); // error state
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    if (value.length > 250) {
+      setError("Review cannot exceed 200 characters!");
+    } else {
+      setError("");
+      setReview(value);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (review.length > 200) {
+      setError("Review cannot exceed 200 characters!");
+      return;
+    }
     onSubmit({ rating, review });
     setRating(0);
     setReview("");
+    setError("");
     onClose();
   };
 
@@ -39,11 +55,14 @@ const ReviewModal = ({ isOpen, onClose, onSubmit }) => {
           {/* Review Input */}
           <textarea
             value={review}
-            onChange={(e) => setReview(e.target.value)}
+            onChange={handleChange}
             placeholder="Write your review..."
-            className="w-full border rounded-lg px-3 py-2 h-56 mb-4 focus:ring-2 focus:ring-indigo-400"
+            className="w-full border rounded-lg px-3 py-2 h-56 mb-2 focus:ring-2 focus:ring-indigo-400"
             required
           ></textarea>
+
+          {/* Error Message */}
+          {error && <p className="text-red-500 mb-2">{error}</p>}
 
           {/* Actions */}
           <div className="flex justify-end gap-3">

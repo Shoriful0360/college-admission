@@ -8,6 +8,8 @@ import { useQuery } from '@tanstack/react-query';
 import UseAxios from '../hook/useAxios';
 import { Link } from 'react-router';
 import Swal from 'sweetalert2';
+import Spinner from '../shared/Spinner';
+import NoData from '../shared/NoData';
 
 
 const MyCollege = () => {
@@ -26,6 +28,8 @@ const MyCollege = () => {
       return data
     }
   })
+
+  if(isLoading) return<Spinner/>
 
   const handleCollegeInfo=(CollegeName,email,image)=>{
     setCandidateInfo(CollegeName,email,image)
@@ -54,8 +58,11 @@ const MyCollege = () => {
     }
   
   };
+
     return (
-         <div className="p-6 mx-auto bg-white shadow-md rounded-xl">
+      <>
+    {
+myAdmission.length?<div className="p-6 mx-auto bg-white shadow-md rounded-xl">
       <div className="overflow-x-auto">
   <table className="table">
     {/* head */}
@@ -108,6 +115,12 @@ const MyCollege = () => {
       />
     
     </div>
+:
+<NoData/>
+      }
+    </>
+      
+         
     );
 };
 
