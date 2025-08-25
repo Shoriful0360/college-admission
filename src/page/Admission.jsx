@@ -43,6 +43,23 @@ export default function AdmissionPage() {
 
 
     if(isLoading) return<Spinner/>
+
+// check user then show form
+const handleUserCheck=(id,image,name)=>{
+  if(!user){
+    Swal.fire({
+  title: "Login,Please?",
+  text: "That thing is still around?",
+  icon: "question"
+  
+});
+return
+  }else{
+    setSelectedCollege(id,image,name)
+  }
+
+}
+
   const handleChange =async (e) => {
    
    
@@ -95,7 +112,7 @@ export default function AdmissionPage() {
     {colleges.map((college) => (
       <div
         key={college._id}
-       onClick={() => setSelectedCollege({
+       onClick={() => handleUserCheck({
    colege_id: college.college_id,
    college_image: college.image,
    college_name: college.name,

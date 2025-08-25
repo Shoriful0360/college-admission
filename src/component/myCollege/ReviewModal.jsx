@@ -7,8 +7,8 @@ const ReviewModal = ({ isOpen, onClose, onSubmit }) => {
 
   const handleChange = (e) => {
     const value = e.target.value;
-    if (value.length > 250) {
-      setError("Review cannot exceed 200 characters!");
+    if (value.length > 300) {
+      setError("Review cannot exceed 300 characters!");
     } else {
       setError("");
       setReview(value);
@@ -17,8 +17,8 @@ const ReviewModal = ({ isOpen, onClose, onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (review.length > 200) {
-      setError("Review cannot exceed 200 characters!");
+    if (review.length > 300) {
+      setError("Review cannot exceed 300 characters!");
       return;
     }
     onSubmit({ rating, review });

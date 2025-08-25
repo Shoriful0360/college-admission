@@ -64,7 +64,7 @@ name
 
               {/* Review text (clamped to avoid overflow) */}
               <p className="text-gray-600 text-justify ">
-                "{review.review.substring(0,250)}"
+                "{review.review.substring(0,300)}"
               </p>
             </div>
           ))}

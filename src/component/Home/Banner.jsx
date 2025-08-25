@@ -17,7 +17,7 @@ import Slide from './Slide';
 const Banner = () => {
  
     return (
-        <div className='py-8'>
+        <div className='w-screen -ml-[calc(50vw-50%)]'>
             <Swiper
         spaceBetween={30}
         centeredSlides={true}
