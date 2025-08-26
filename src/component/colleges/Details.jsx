@@ -38,13 +38,16 @@ const [editingId,setEditingId]=useState(null)
       refetch()
      
     }
-    console.log(college)
+
 // edit coment
-const handleEditComment=async(collegeId,commentId,text)=>{
-console.log(collegeId,commentId,text)
+const handleEditComment=async(collegeId,commentId,newComment)=>{
+  console.log(newComment)
+  const {data}=await axiosSecure.patch(`/college/${collegeId}/comment/${commentId}`,{comment:newComment})
+  refetch()
+
 
 }
-console.log(college)
+
     return (
       <div className="w-11/12 mx-auto py-12">
 
@@ -122,7 +125,7 @@ className="px-3 py-1 bg-green-100 text-green-600 text-sm rounded-full"
 
 {/* show comment */}
 {
-  college?.comment?.map((item)=><div key={item.id} className="border-base-300 mt-4 border-2 p-4 max-w-3xl">
+  college?.comments?.map((item)=><div key={item.id} className="border-base-300 mt-4 border-2 p-4 max-w-3xl">
     {/* edit comment */}
     {
      editingId===item.id?    <div>
@@ -130,7 +133,7 @@ className="px-3 py-1 bg-green-100 text-green-600 text-sm rounded-full"
    defaultValue={item.text}
    onChange={(e)=>setComment(e.target.value)} className="textarea" placeholder="Bio"></textarea>
       <button onClick={()=>{
-        handleEditComment(college._id,college.comment.id,comment);
+        handleEditComment(college._id,item.id,comment);
         setEditingId(null)
       }} className="btn bg-blue-500 text-white">send</button>
     </div>
