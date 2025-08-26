@@ -1,12 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import UseAxios from "../../hook/useAxios";
 import Spinner from "../../shared/Spinner";
+import { useState } from "react";
+
 
 
 const Details = ({id}) => {
-console.log(id)
+const [comment,setComment]=useState()
+const[visibleComment,setVisibleComment]=useState(true)
+const [editingId,setEditingId]=useState(null)
+
   const axiosSecure=UseAxios()
-    const {data:college,isLoading}=useQuery({
+    const {data:college,isLoading,refetch}=useQuery({
         queryKey:['college_details',id],
         enabled:!!id,
         queryFn:async()=>{
@@ -15,9 +20,31 @@ console.log(id)
         }
     })
     
-    if(isLoading) return <Spinner/>
+    if(isLoading ) return <Spinner/>
 
+    const handleComment=async(e)=>{
+      e.preventDefault()
+      const text=e.target.comment.value;
+      e.target.reset()
+   
+  const newComment = {
+    id:Date.now(),
+    name: "Shoriful Islam",
+    image: "https://lh3.googleusercontent.com/a/ACg8ocJbcr7DRCVqxsvoVQeRG46WBK5N9juu-LDkRIrLl9kTK04q1GU=s96-c",
+    comment: text
+  };
 
+   await axiosSecure.post(`/comment/${id}`,newComment)
+      refetch()
+     
+    }
+    console.log(college)
+// edit coment
+const handleEditComment=async(collegeId,commentId,text)=>{
+console.log(collegeId,commentId,text)
+
+}
+console.log(college)
     return (
       <div className="w-11/12 mx-auto py-12">
 
@@ -83,13 +110,47 @@ className="px-3 py-1 bg-green-100 text-green-600 text-sm rounded-full"
 {/* comment */}
 <div>
     <h3 className="text-xl font-bold underline underline-offset-5 mt-4 ">Comment :</h3>
-    <fieldset className="fieldset w-full">
+ <form onSubmit={handleComment}>
+     <fieldset className="fieldset w-full">
   <legend className="fieldset-legend">Your bio</legend>
-  <textarea className="textarea lg:w-3xl md:w-2xl h-34" placeholder="Bio"></textarea>
-  <button className="btn w-fit flex ">send</button>
+  <textarea name="comment" className="textarea lg:w-3xl md:w-2xl h-34" placeholder="Bio"></textarea>
+  <button  type="submit" className="btn w-fit flex ">send</button>
   
 </fieldset>
+ </form>
 </div>
+
+{/* show comment */}
+{
+  college?.comment?.map((item)=><div key={item.id} className="border-base-300 mt-4 border-2 p-4 max-w-3xl">
+    {/* edit comment */}
+    {
+     editingId===item.id?    <div>
+   <textarea
+   defaultValue={item.text}
+   onChange={(e)=>setComment(e.target.value)} className="textarea" placeholder="Bio"></textarea>
+      <button onClick={()=>{
+        handleEditComment(college._id,college.comment.id,comment);
+        setEditingId(null)
+      }} className="btn bg-blue-500 text-white">send</button>
+    </div>
+    
+  :
+  // edit form
+ <div>
+    <div className="flex items-center gap-4"> 
+    <img src={item?.image} alt={item.image} className="w-10 h-10 rounded-full" />
+    <h4>{item.name}</h4>
+   
+  </div>
+  <p >{item.comment}</p>
+  <button onClick={()=>setEditingId(item.id)} className="btn mt-4">Edit</button>
+  </div>
+    }
+  
+
+</div>)
+}
 </div>
     );
 };
